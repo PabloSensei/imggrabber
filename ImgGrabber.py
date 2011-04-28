@@ -1,5 +1,5 @@
 #coding: utf-8
-import sys,urllib2,re,os,MainWindow,threading
+import sys,urllib2,re,os,MainWindow,threading,time
 from PyQt4 import QtCore, QtGui
 class BoardParser():
 	def get_urls(self):
@@ -13,10 +13,11 @@ class BoardParser():
 		return urls 
 	def parse_0(self,limit,url,tag):#konachan.com oreno.imouto.org danbooru.donmai.us behoimi.org nekobooru.net genso.ws
 		global progress
-		urls,page,i,limit_page='',1,0,limit/999+1
+		urls,page,limit_page='',1,limit/999+1
 		while page<=limit_page:
-			url=urllib2.urlopen('http://'+url+'/post?limit='+str(limit)+'&page='+str(page)+'&tags='+tag)
-			parse=url.read()
+			i=0
+			link=urllib2.urlopen('http://'+url+'/post?limit='+str(limit)+'&page='+str(page)+'&tags='+tag)
+			parse=link.read()
 			result=re.finditer(r'Post\.register\(\{.+\"file\_url\"\:\".+\".+\}\)',parse)
 			for res in result:
 				urls+=res.group().split('file_url":"')[1].split('"')[0]+'\n'
@@ -27,11 +28,12 @@ class BoardParser():
 			page+=1
 		return urls
 	def parse_1(self,limit,url,tag):#chan.sankakucomplex.com idol.sankakucomplex.com
-		urls,page,limit_page,i,i1='',1,limit/70+1,0,0
+		urls,page,limit_page,i='',1,limit/70+1,0
 		while page<=limit_page:
 			global progress
-			url=urllib2.urlopen('http://'+url+'/post/index?limit=70&tags='+tag+'&page='+str(page))
-			parse=url.read()
+			i1=0
+			link=urllib2.urlopen('http://'+url+'/post/index?limit=70&tags='+tag+'&page='+str(page))
+			parse=link.read()
 			result=re.finditer(r'Post\.register\(\{.+\}\)\;',parse)
 			for res in result:
 				i+=1
@@ -48,8 +50,8 @@ class BoardParser():
 		urls,page,='',0
 		while limit>0:
 			i=0
-			url=urllib2.urlopen('http://gelbooru.com/index.php?page=post&s=list&tags='+tag+'&pid='+str(page))			
-			parse=url.read()
+			link=urllib2.urlopen('http://gelbooru.com/index.php?page=post&s=list&tags='+tag+'&pid='+str(page))			
+			parse=link.read()
 			result=re.finditer( r'<span id\=\".+\" class\=\"thumb\"\>\<a id\=\".+\>\<img src\=\".+".+\"\/\>\<\/a\>\<\/span\>',parse)
 			for res in result:
 				urls+=res.group().split('img src="')[1].split('"')[0].split('?')[0].replace('thumbs','images').replace('thumbnail_','')+'\n'
@@ -65,8 +67,8 @@ class BoardParser():
 		urls,page,='',1
 		while limit>0:
 			i=0
-			url=urllib2.urlopen('http://www.animemahou.com/post/'+str(page)+'?search='+tag)			
-			parse=url.read()
+			link=urllib2.urlopen('http://www.animemahou.com/post/'+str(page)+'?search='+tag)			
+			parse=link.read()
 			result=re.finditer( r'\<img onMouseover\=\'ddrivetip\(\".+\;.+\;.+\' alt\=\'.+\' title\=.+src\=\'.+\' class\=\'preview\'\/\>',parse)
 			for res in result:
 				if int(res.group().split('src=\'')[1].split('-')[0].split('/')[-1])<40660:urls+='http://www.jp-girls.org/_images/'+res.group().split('_thumbs/')[1].split('/')[0]+'.'+res.group().split('(')[1].split(')')[0].split('/')[4].split(' ')[1]+'/AnimeMahou-'+res.group().split('src=\'')[1].split('-')[0].split('/')[-1]+'.'+res.group().split('(')[1].split(')')[0].split('/')[4].split(' ')[1]+'\n'
@@ -102,14 +104,18 @@ class ImgSave():
 		path,file,value=self.path.set_path(),self.file.get_file_urls(),0
 		window.ui.progressBar.setMaximum(progress)
 		for url in file.readlines():
-			img=urllib2.urlopen(url)
+			opened=False
+			while opened==False:
+				try:img=urllib2.urlopen(url)
+				except:time.sleep(3)
+				else:opened=True
 			img_name=path+img.geturl().replace('%20',' ').split('/')[-1]
+			value+=1
+			window.ui.progressBar.setValue(value)
 			if os.access(img_name,os.F_OK)==True:continue
 			img_file=open(img_name,'wb')
 			img_file.write(img.read())
 			img_file.close()
-			value+=1
-			window.ui.progressBar.setValue(value)
 		file.close()	
 		window.ui.statusbar.showMessage('Complete')
 class Main(QtGui.QMainWindow):
