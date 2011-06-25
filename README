@@ -1,1 +1,21 @@
-Hello! This is my first commit.
+Imggrabber - программа для быстрого скачивания картинок с анимешных имэйдж-боард (imageboard) написанный на python с интерфейсом на PyQT.
+
+На данный момент поддерживается 10 боард: 
+	- Konachan.com
+	- Danbooru.donmai.us
+	- Chan.sankakucomplex.com
+	- Idol.sankakucomplex.com
+	- Genso.ws
+	- Oreno.imouto.org
+	- Behoimi.org
+	- Gelbooru.com
+	- Nekobooru.net
+	- Animemahou.com
+
+Структура проекта:
+
+	ImgGrabber.py - основной код. Алгоритмы работы.
+	MainWindow.py - Интерфейс.
+	README - этот файл.
+
+Для запуска исходников необходим python версии 2.х и установленный PyQT4.
