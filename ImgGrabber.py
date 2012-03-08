@@ -1,6 +1,8 @@
 #coding: utf-8
 import sys,urllib2,re,os,MainWindow,threading,time
 from PyQt4 import QtCore, QtGui
+
+
 class Downloader():
 	def setPath(self):
 		path=''
@@ -30,7 +32,7 @@ class Downloader():
 				img_file.close()
 			d[0][0]+=1
 			p.setValue(d[0][0])
-			t[0][0]+=1	
+			t[0][0]+=1
 			print '\nComplete: '+url
 		file=open(fn,'r')
 		path=self.setPath()
@@ -229,6 +231,15 @@ class Main(QtGui.QMainWindow):
 		QtGui.QWidget.__init__(self,parent)
 		self.ui=MainWindow.Ui_MainWindow()
 		self.ui.setupUi(self)
+
+		f = open("settings.ini",'r')
+		path = f.readline().split("path=")[1].rstrip()
+		tags = f.readline().split("tags=")[1].rstrip()
+		limits = f.readline().split("limits=")[1].rstrip()
+		f.close()
+		self.ui.path_line.setText(path)
+		self.ui.tage_line.setText(tags)
+		self.ui.num_line.setText(limits)
 		QtCore.QObject.connect(self.ui.fileDialogBtn,QtCore.SIGNAL('clicked()'),self.fileDialog)
 		QtCore.QObject.connect(self.ui.downloadBtn,QtCore.SIGNAL('clicked()'),self.get)
 		self.ui.CB_animemahou.setEnabled(False)
@@ -263,6 +274,13 @@ class Main(QtGui.QMainWindow):
 				]
 		for i in CheckBox:			
 			if i.isChecked()==True:board.append(str(i.text()))
+		f1 = open("settings.ini",'w')
+		l = []
+		l.append("path="+self.ui.path_line.text()+"\n")
+		l.append("tags="+self.ui.tage_line.text()+"\n")
+		l.append("limits="+self.ui.num_line.text())
+		f1.writelines(l)
+		f1.close()
 		parse.startParser(board)
 def main():
 	window.show()
