@@ -65,7 +65,7 @@ class Parser(Downloader):
 		window.ui.statusbar.showMessage('Grabbing...')
 		treads=[]
 		for i in board:
-			if i=='Konachan.com'or i=='Oreno.imouto.org'or i=='Danbooru.donmai.us'or i=='Behoimi.org'or i=='Nekobooru.net'or i=='Genso.ws':tread=threading.Thread(target=self.parse0,args=(i,limit,tag,))
+			if i=='Konachan.com'or i=='Yande.re'or i=='Danbooru.donmai.us'or i=='Behoimi.org'or i=='Nekobooru.net'or i=='Genso.ws':tread=threading.Thread(target=self.parse0,args=(i,limit,tag,))
 			if i=='Chan.sankakucomplex.com'or i=='Idol.sankakucomplex.com':tread=threading.Thread(target=self.parse1,args=(i,limit,tag,))
 			if i=='Gelbooru.com':tread=threading.Thread(target=self.parse2,args=(limit,tag,))
 			if i=='Animemahou.com':tread=threading.Thread(target=self.parse3,args=(limit,tag,))
@@ -112,7 +112,7 @@ class Parser(Downloader):
 			t[0][0]+=1
 			print '\nProcess end: '+url+' '+str(page)
 		if board=='Konachan.com':p,fn=window.ui.PB_konachan,'url.konachan'
-		if board=='Oreno.imouto.org':p,fn=window.ui.PB_oreno,'url.oreno'
+		if board=='Yande.re':p,fn=window.ui.PB_oreno,'url.yandere'
 		if board=='Danbooru.donmai.us':p,fn=window.ui.PB_danboru,'url.danbooru'
 		if board=='Behoimi.org':p,fn=window.ui.PB_behomini,'url.behoimi'
 		if board=='Nekobooru.net':p,fn=window.ui.PB_nekobooru,'url.nekobooru'
