@@ -191,7 +191,7 @@ class Ui_MainWindow(object):
         self.CB_chan.setText(QtGui.QApplication.translate("MainWindow", "Chan.sankakucomplex.com", None, QtGui.QApplication.UnicodeUTF8))
         self.CB_idol.setText(QtGui.QApplication.translate("MainWindow", "Idol.sankakucomplex.com", None, QtGui.QApplication.UnicodeUTF8))
         self.CB_genso.setText(QtGui.QApplication.translate("MainWindow", "Genso.ws", None, QtGui.QApplication.UnicodeUTF8))
-        self.CB_oreno.setText(QtGui.QApplication.translate("MainWindow", "Oreno.imouto.org", None, QtGui.QApplication.UnicodeUTF8))
+        self.CB_oreno.setText(QtGui.QApplication.translate("MainWindow", "Yande.re", None, QtGui.QApplication.UnicodeUTF8))
         self.CB_behomini.setText(QtGui.QApplication.translate("MainWindow", "Behoimi.org", None, QtGui.QApplication.UnicodeUTF8))
         self.CB_gelbooru.setText(QtGui.QApplication.translate("MainWindow", "Gelbooru.com", None, QtGui.QApplication.UnicodeUTF8))
         self.CB_nekobooru.setText(QtGui.QApplication.translate("MainWindow", "Nekobooru.net", None, QtGui.QApplication.UnicodeUTF8))
