@@ -6,7 +6,7 @@
 	- Chan.sankakucomplex.com
 	- Idol.sankakucomplex.com
 	- Genso.ws
-	- Oreno.imouto.org
+	- Yande.re
 	- Behoimi.org
 	- Gelbooru.com
 	- Nekobooru.net
@@ -17,6 +17,6 @@
 	ImgGrabber.py - Основной код. Алгоритмы работы.
 	MainWindow.py - Интерфейс.
 	settings.ini - Настройки программы.
-	README - этот файл.
+	README - Этот файл.
 
 Для запуска исходников необходим python версии 2.х и установленный PyQT4.
