@@ -99,7 +99,7 @@ class Parser(Downloader):
 			parse=link.read()
 			result=re.finditer(r'Post\.register\(\{.+\"file\_url\"\:\".+\".+\}\)',parse)
 			for res in result:
-				urls+=res.group().split('file_url":"')[1].split('"')[0]+'\n'
+				urls+=res.group().split('file_url":"')[1].split('"')[0].replace('\\','')+'\n'
 				i+=1
 				g[0][0]+=1
 				if g[0][0]==limit:break
