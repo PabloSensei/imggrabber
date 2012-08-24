@@ -243,6 +243,7 @@ class Main(QtGui.QMainWindow):
 		QtCore.QObject.connect(self.ui.fileDialogBtn,QtCore.SIGNAL('clicked()'),self.fileDialog)
 		QtCore.QObject.connect(self.ui.downloadBtn,QtCore.SIGNAL('clicked()'),self.get)
 		self.ui.CB_animemahou.setEnabled(False)
+		self.ui.CB_genso.setEnabled(False)
 	def fileDialog(self):
 		fd=QtGui.QFileDialog(self)
 		self.ui.path_line.setText(fd.getExistingDirectory())
