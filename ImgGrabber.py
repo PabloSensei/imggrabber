@@ -147,7 +147,7 @@ class Parser(Downloader):
 				loop+=1
 				if page==1:
 					if loop<=4:continue
-				urls+=res.group().split('file_url":"')[1].split('"')[0]+'\n'
+				urls+=res.group().split('preview_url":"')[1].split('"')[0].replace('preview/','')+'\n'
 				i+=1
 				g[0][0]+=1
 				if g[0][0]==limit:break
